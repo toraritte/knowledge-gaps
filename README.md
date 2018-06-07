@@ -1,5 +1,10 @@
-# knowledge-gaps
-All the stuff I don't know, but would like to (or should)
+(Another) experiment to keep track of all the things I don't know. When learning or reading something new and see something that is intriguing (or don't immediately understand), I jump into a research frenzy, end up with min. 15 new chrome pages, save the bookmarks, and then struggle to find them among thousands. Worst case, I redo the whole thing a couple more times in the future. (For example, I saw a twitter post about Beaker Browser, went to the docs, jumped to IPFS, then to DAT, then to Pijul and so on.)
+
+The notion:
+
+ + Open an issue with the topic of interest
+ + Start adding links and notes during my altered state of mind
+ + Somehow make this work in the long run
 
 <p xmlns:dct="http://purl.org/dc/terms/" xmlns:vcard="http://www.w3.org/2001/vcard-rdf/3.0#">
   <a rel="license"
