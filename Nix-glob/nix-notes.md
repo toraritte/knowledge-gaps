@@ -199,6 +199,7 @@ QUESTIONS:
 
     For example, paraphrasing the official example,
 
+    ```text
                         (BUILD, HOST, TARGET)
     DEPENDING PACKAGE   (foo,   bar,   bar  )
                              \      \
@@ -210,6 +211,7 @@ QUESTIONS:
                                V      V
     DEPENDED-ON'S       (foo,   foo,   foo   )
     DEPENDENCIES
+    ```
 
     That  is,  the  depending package's  build  platform
     is  determined  by  the depended-on  packages'  host
@@ -233,6 +235,7 @@ QUESTIONS:
 
       Is the offset (-1, -1) because of this?
 
+      ```text
                           (BUILD, HOST, TARGET)
       DEPENDING PACKAGE   (foo,   bar,   bar  )
                                \   :  \   :
@@ -244,11 +247,13 @@ QUESTIONS:
                                  V V    V V
       DEPENDED-ON'S       (foo,   foo,   foo   )
       DEPENDENCIES
+      ```
 
     **nativeBuildInputs**
 
       Offset (-1, 0)?
 
+      ```text
                           (BUILD, HOST, TARGET)
       DEPENDING PACKAGE   (foo,   bar,   bar  )
                                \   :  \   :
@@ -260,11 +265,13 @@ QUESTIONS:
                                  V      V
       DEPENDED-ON'S       (foo,   foo,   foo   )
       DEPENDENCIES
+      ```
 
     **depsBuildTarget**
 
       Offset (-1, 0)?
 
+      ```text
                           (BUILD, HOST, TARGET)
       DEPENDING PACKAGE   (foo,   bar,   bar  )
                                \   :  \   :
@@ -276,6 +283,7 @@ QUESTIONS:
                                  V      V
       DEPENDED-ON'S       (foo,   foo,   foo   )
       DEPENDENCIES
+      ```
 
   + What is **dependency propagation** exactly? "_The extension of PATH with dependencies_"?
 
