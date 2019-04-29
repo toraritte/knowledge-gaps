@@ -8,6 +8,11 @@
    Also introduce the concept of "substituter" in 13.1 because it
    is already in use in **13.3. Serving a Nix store via SSH**.
 
+ + `mkIf` never mentioned in Nixpkgs manual even though it is used extensively
+   E.g.,
+   https://github.com/NixOS/nixpkgs/blob/release-19.03/nixos/modules/services/amqp/rabbitmq.nix
+   https://github.com/NixOS/nixpkgs/blob/release-19.03/nixos/modules/services/misc/autorandr.nix
+
 ### Ideas to improve the docs
 
  + **Show related commits to each manual.**
