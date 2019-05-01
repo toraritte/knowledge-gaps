@@ -45,6 +45,27 @@
 
    *13. Coding Conventions* is a style guide.
 
+ + NixOS manual:
+
+   The  install section  is  good, but  then it  starts
+   to  trail   off  in  "*II.   Configuration*"  toward
+   (random|opinionated)  packages.  For example,  after
+   the linux  kernel section,  there is  "Matrix" (what
+   is  that?), Emacs  (why  not Vim,  or a  generalized
+   "Editors"  section?).  It  finally  steers  back  to
+   useful topics with "*III. Administration*".
+   -> I  think   it  would  be  useful   to  continue  the
+      installation  section with  the most  general setup,
+      i.e. basic networking, user setup (because initially
+      there's   just  root),   etc.   and  have   detailed
+      descriptions later.
+
+   "*IV. Developmnet*"  should go to the  Nix manual in
+   its entirety.  This is  a recurring theme  that many
+   concepts are  introduced at  one place, but  are way
+   better explained  with detailed examples  at another
+   (almost random) location.
+
 ### Ideas to improve the docs
 
  + **Show related commits to each manual.**
