@@ -13,6 +13,13 @@
    https://github.com/NixOS/nixpkgs/blob/release-19.03/nixos/modules/services/amqp/rabbitmq.nix
    https://github.com/NixOS/nixpkgs/blob/release-19.03/nixos/modules/services/misc/autorandr.nix
 
+ + Why are vim plugins and the vim package at different pages in Nixpkgs?
+   Related: `nixpkgs/pkgs/misc/vim-plugins/vim-utils.nix` has way
+             better  description of  how  to  configure vim  with
+             plugins in  NixOS than the official  manual... Found
+             it by accident, and it would be nice to have it with
+             the vim package (or in the manual).
+
 ### Ideas to improve the docs
 
  + **Show related commits to each manual.**
