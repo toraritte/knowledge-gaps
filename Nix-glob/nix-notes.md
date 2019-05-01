@@ -20,6 +20,23 @@
              it by accident, and it would be nice to have it with
              the vim package (or in the manual).
 
+ + NIXPKGS doc:
+
+   Section  9  and 11  is  completely  messed up.  The
+   former is called  "*Support for specific programming
+   languages and  frameworks*", and has Vim  in it, and
+   the title  of the  latter is "*Package  Notes*", but
+   has Emacs  in it,  and Elm, which  should go  to the
+   former.  The distinction  between  9 and  11 is  bad
+   anyways, because  these are all  describing specific
+   package.
+
+   There  are sections,  such as  "*12. Overlays*"  and
+   "*13. Coding Conventions*", that are intermingled in
+   the package  specific chapters,  but provide  a more
+   general  information. In  9, plenty  of descriptions
+   mention overlays for example.
+
 ### Ideas to improve the docs
 
  + **Show related commits to each manual.**
