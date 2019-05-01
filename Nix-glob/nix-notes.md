@@ -37,6 +37,14 @@
    general  information. In  9, plenty  of descriptions
    mention overlays for example.
 
+   **Overlays**
+   *What problems does it solve?*
+   *What is it exactly?* Couldn't  figure it out from the
+   summary, and  it doesn't logically follow  any other
+   sections that would give this away.
+
+   *13. Coding Conventions* is a style guide.
+
 ### Ideas to improve the docs
 
  + **Show related commits to each manual.**
