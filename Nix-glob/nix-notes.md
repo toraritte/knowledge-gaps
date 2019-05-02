@@ -59,12 +59,36 @@
       i.e. basic networking, user setup (because initially
       there's   just  root),   etc.   and  have   detailed
       descriptions later.
+         |
+         V
+      Just got to "*Chapter 31. Profiles*". WHY ISN'T THIS
+      RIGHT AFTER INSTALLATION (or somewhere near, such as
+      "*Changing configuration*")?
 
    "*IV. Developmnet*"  should go to the  Nix manual in
    its entirety.  This is  a recurring theme  that many
    concepts are  introduced at  one place, but  are way
    better explained  with detailed examples  at another
    (almost random) location.
+
+ * SYSTEMD
+
+   Far from being clear, and there was this twitter thread too:
+   https://twitter.com/toraritte/status/1118667135297802240
+   (with a Stackoverflow question embedded in it)
+
+   "*Chapter  33. Service  Management*" gives  the bare
+   minimum  about  the topic,  but  it  still does  not
+   explain how  to use packages that  also have systemd
+   services written.  The closest that I  could find is
+   in "*Chapter 18.  WeeChat*", explicitly showing what
+   to do, and  "*Chapter 21. Emacs*". All  this is only
+   in  the NixOS  manual,  nothing  in Nixpkgs  manual.
+   (This  kinda  makes  sense  as  the  latter  is  not
+   specifically tied to the  NixOS distro, but it would
+   be  nice to  at least  have a  mention, because  the
+   Nixpkgs repo has a  specific directory structure for
+   systemd service files.
 
 ### Ideas to improve the docs
 
