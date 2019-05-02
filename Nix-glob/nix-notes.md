@@ -1,5 +1,13 @@
 ### TODO
 
+ + **Make references to claims.**
+   For  example,  in  the  NixOS  manual  at  "*Chapter
+   39.  Container  Management*",  it  reads  "*Warning:
+   Currently,  NixOS   containers  are   not  perfectly
+   isolated  from the  host  system.*"  Theremust be  a
+   Github issue,  a forum  discussion etc. then  to let
+   people follow up on it.
+
  + `binary-caches`  and   `extra-binary-caches`  are  deprecated.
    Replace  this  with  their corresponding  replacements  (e.g.,
    `substituters`, `extra-subsituters` etc.)
@@ -70,6 +78,16 @@
    concepts are  introduced at  one place, but  are way
    better explained  with detailed examples  at another
    (almost random) location.
+
+   "*Chapter  38. Cleaning  the  Nix  Store*" is  again
+   hidden someplace  random. Why  not somewhere  in the
+   vicinity of "*6. Package Management*"?
+
+   The ordering (again) is weird in "*42. Writing NixOS
+   Modules*": starts with "*42.1. Option Declarations*"
+   and  "*42.1.1. Extensible  Option Types*",  and then
+   goes into  "*42.2 Option  Types*" and  "*42.3 Option
+   Definitions*". Why is 42.1.1 even nested under 42.1?
 
  * SYSTEMD
 
