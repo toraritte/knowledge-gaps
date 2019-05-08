@@ -108,6 +108,10 @@
    Nixpkgs repo has a  specific directory structure for
    systemd service files.
 
+   Check out  "*Chapter 43. Building Specific  Parts of
+   NixOS*",  there is  a good  description of  manually
+   building systemd services.
+
 ### Ideas to improve the docs
 
  + **Show related commits to each manual.**
@@ -406,3 +410,58 @@ QUESTIONS:
 
 This is not a project to belittle efforts of others who contribute to the official docs, or who have created their own resources.
 
+---
+
+FQDN issue (https://github.com/NixOS/nixpkgs/issues/10183)
+==========================================================
+
+Things tried to resolve this on a fresh NixOS 19.03 install.
+
+1. Add
+
+  ```nix
+    networking.hostName = "pat";
+    networking.domain = "test.tld";
+  ```
+  then
+  ```text
+  # nixos-rebuild switch
+  # reboot
+  ```
+
+  After reboot:
+  ```text
+  # hostname --fqdn
+  pat
+  # hostname --domain
+
+  # domainname -v
+  getdomainname()='test.tld'
+  test.tld
+  # dnsdomainname -v
+  gethostname()='pat'
+  Resolving 'pat' ...
+  Result: h_name='pat'
+  Result: h_addr_list='fe80::....::....::....::....'
+  # cat /etc/hosts
+  127.0.0.1 localhost
+  127.0.1.1 pat
+  ::1 localhost
+  ```
+
+2. Changes according to issue comment https://github.com/NixOS/nixpkgs/issues/10183#issue-109493770 , i.e., adding
+
+  ```nix
+  networking.search = [ "test.tld" ];
+  ```
+  then
+  ```text
+  # nixos-rebuild switch
+  # reboot
+  ```
+
+  After reboot: everything the same as in 1. above.
+
+### Odd, not documented (or too obvious) stuff found
+
+Working inside company network with its own DNS and own domain. Without `networking.search = []`, the only entry in `/etc/resolv.conf` is `options edns0`. The system FQDN resolves nicely though, even pinging with just the host part (i.e., `pat`). With the option there, it nicely puts in the local domain and miscellaneous info.
