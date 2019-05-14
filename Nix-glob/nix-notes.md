@@ -146,7 +146,7 @@ Using `nix-shell`. Read `man nix-shell` and more on this topic.
 
 QUESTION: Where does `'<nixpkgs>'` come from?
 
-ANSWER: From [15.1. Values](): "*Paths can also be specified between angle brackets, e.g. <nixpkgs>. This means that the directories listed in the environment variable NIX_PATH will be searched for the given file or directory name.*"
+ANSWER: From [15.1. Values, subsection "Simple Values"](https://nixos.org/nix/manual/#idm140737317975776): "*Paths can also be specified between angle brackets, e.g. <nixpkgs>. This means that the directories listed in the environment variable NIX_PATH will be searched for the given file or directory name.*"
 
 ### For [Chapter 10. Profiles](https://nixos.org/nix/manual/#sec-profiles)
 
