@@ -112,6 +112,8 @@
    NixOS*",  there is  a good  description of  manually
    building systemd services.
 
+   + in the NixOS config file, "services"`services.<pkg>.enable` lines refers to systemd service module packages (or nix-files) that belong to a specific package and they basically expose options for the given package. Whereas `systemd.services` requires one to fully flesh out a systemd target (?, i.e., service files etc., need to read up on systemd). Look for "systemd.services" in [NixOS options page](https://nixos.org/nixos/options.html).
+
 ### Ideas to improve the docs
 
  + **Show related commits to each manual.**
