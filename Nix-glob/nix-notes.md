@@ -116,6 +116,42 @@
 
    + in the NixOS config file, "services"`services.<pkg>.enable` lines refers to systemd service module packages (or nix-files) that belong to a specific package and they basically expose options for the given package. Whereas `systemd.services` requires one to fully flesh out a systemd target (?, i.e., service files etc., need to read up on systemd). Look for "systemd.services" in [NixOS options page](https://nixos.org/nixos/options.html).
 
+   + in `nixos/modules/services/amqp/rabbitmq.nix:144` there is the line
+     ```text
+     142     # This is needed so we will have 'rabbitmqctl' in our PATH
+     143     environment.systemPackages = [ cfg.package ];
+     ```
+     and `cfg.package` confused me. I assumed that it refers to `rabbitmq-server` itself, and as it turns out, it does:
+     ```text
+      18     services.rabbitmq = {
+      (...)
+      27       package = mkOption {
+      28         default = pkgs.rabbitmq-server;
+      29         type = types.package;
+      30         defaultText = "pkgs.rabbitmq-server";
+      31         description = ''
+      32           Which rabbitmq package to use.
+      33         '';
+      34       };
+      ```
+      So at one point, this option will evaluate to `pkgs.rabbitmq-server`.
+
+      To double-check:
+      ```
+      0 [12:34:10] nix repl
+      Welcome to Nix version 2.2.2. Type :? for help.
+
+      nix-repl> pkgs = import <nixpkgs> {}
+
+      nix-repl> nixos = import <nixpkgs/nixos> {}
+
+      nix-repl> pkgs.rabbitmq-server
+      «derivation /nix/store/p3cdpk00zd4wvzwcz1ppgyqf8l52icbn-rabbitmq-server-3.7.11.drv»
+
+      nix-repl> nixos.config.services.rabbitmq.package
+      «derivation /nix/store/p3cdpk00zd4wvzwcz1ppgyqf8l52icbn-rabbitmq-server-3.7.11.drv»
+      ```
+
 ### Ideas to improve the docs
 
  + **Show related commits to each manual.**
@@ -330,7 +366,7 @@ QUESTIONS:
     package  is a  compiler only  being able  to produce
     code running in that platform).
 
-  + "Variables specifying dependencies" in 
+  + "Variables specifying dependencies" in
     [3.3. Specifying dependencies](https://nixos.org/nixpkgs/manual/#ssec-stdenv-dependencies)
 
     **depsBuildBuild**
