@@ -112,6 +112,8 @@
    NixOS*",  there is  a good  description of  manually
    building systemd services.
 
+   + The `/home/toraritte/clones/nixpkgs/nixos/modules/system/boot` folder in the nixpkgs repo has all the Nix lambdas that produce a systemd unit file. `systemd.nix` and `systemd-lib.nix` seem to be the workhorses, and `systemd-unit-options.nix` is testing options, and also sort of the only documentation there is.
+
    + in the NixOS config file, "services"`services.<pkg>.enable` lines refers to systemd service module packages (or nix-files) that belong to a specific package and they basically expose options for the given package. Whereas `systemd.services` requires one to fully flesh out a systemd target (?, i.e., service files etc., need to read up on systemd). Look for "systemd.services" in [NixOS options page](https://nixos.org/nixos/options.html).
 
 ### Ideas to improve the docs
