@@ -116,3 +116,17 @@ lrwxrwxrwx    1 root root        70 Dec 31  1969 var -> /nix/store/j9mf82znx5ld3
 ## "*Read `nix.sh`, it's short.*"
 
 `nix.sh` is the one that needs to be run after a fresh install (or restart the shell, because `nix.sh` is now sourced form `.bashrc`). See it in this repo, here's the link: [`nix.sh`](./nix-profile_etc_profile.d_nix.sh).
+
+NixOS doesn't have one, probably because it is baked in from the start. Figure it out.
+
+# [3.1. Enter the environment](https://nixos.org/nixos/nix-pills/enter-environment.html#idm140737316600912)
+
+## "*let's start by switching to it with `su - nix`*"
+
+Why? Isn't the point of showing that a normal user can install packages? Later it explains, so I guess this was for everyone to have a uniform experience.
+
+# [3.2. Install something](https://nixos.org/nixos/nix-pills/enter-environment.html#install-something)
+
+With `nix-env -i hello`, "*We installed hello by derivation name minus the version. I repeat: we specified the **derivation name** (minus the version) to install it.*"
+
+"Generations" are kind of explained in [2.4. The first profile](https://nixos.org/nixos/nix-pills/install-on-your-running-system.html#idm140737316649984): "*Not only that, but profiles are made up of multiple "generations": they are versioned. Whenever you change a profile, a new generation is created.*"
