@@ -1,10 +1,12 @@
 ### TODO
 
+ + https://nixos.org/nix/manual/#sec-conf-file states that "*Nix reads settings from two configuration files*", but it depends also whether or not NixOS is the underlying OS. In that case, the config file is `/etc/nixos/configuration.nix`. The only place where this distinction is clarified is in [14.3.1. Tested using sandboxing](https://nixos.org/nixpkgs/manual/#submitting-changes-tested-with-sandbox) in the Nixpkgs manual.
+
  + **Make references to claims.**
    For  example,  in  the  NixOS  manual  at  "*Chapter
    39.  Container  Management*",  it  reads  "*Warning:
    Currently,  NixOS   containers  are   not  perfectly
-   isolated  from the  host  system.*"  Theremust be  a
+   isolated  from the  host  system.*"  There must be a
    Github issue,  a forum  discussion etc. then  to let
    people follow up on it.
 
