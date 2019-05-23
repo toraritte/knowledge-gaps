@@ -1,6 +1,9 @@
 ### TODO
 
- + https://nixos.org/nix/manual/#sec-conf-file states that "*Nix reads settings from two configuration files*", but it depends also whether or not NixOS is the underlying OS. In that case, the config file is `/etc/nixos/configuration.nix`. The only place where this distinction is clarified is in [14.3.1. Tested using sandboxing](https://nixos.org/nixpkgs/manual/#submitting-changes-tested-with-sandbox) in the Nixpkgs manual.
+#### `nix.conf`, `config.nix`, and `configuration.nix`
+The [`nix.conf`](https://nixos.org/nix/manual/#name-11) doc states that "*Nix reads settings from two configuration files*", but it depends also whether or not NixOS is the underlying OS. In that case, the config file is `/etc/nixos/configuration.nix`. The only place where this distinction is clarified is in [14.3.1. Tested using sandboxing](https://nixos.org/nixpkgs/manual/#submitting-changes-tested-with-sandbox) in the Nixpkgs manual. The third player, `config.nix`, is introduced by [6.6. Declarative Package Management](https://nixos.org/nixpkgs/manual/#sec-declarative-package-management).
+
+#### heap
 
  + **Make references to claims.**
    For  example,  in  the  NixOS  manual  at  "*Chapter
