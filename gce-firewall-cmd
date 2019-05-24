@@ -1,0 +1,9 @@
+gcloud compute firewall-rules create \
+h323-gatekeeper-ras \
+--network default                    \
+--priority 1000                      \
+--direction ingress                  \
+--action allow                       \
+--target-tags [network-tag]          \
+--source-ranges 0.0.0.0/0            \
+--rules udp:1719
