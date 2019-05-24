@@ -7,7 +7,7 @@ The [`nix.conf`](https://nixos.org/nix/manual/#name-11) doc states that "*Nix re
 
 `buildEnv` is not documented, only description is in [6.6. Declarative Package Management](https://nixos.org/nixpkgs/manual/#sec-declarative-package-management). Good SO thread is [here](https://stackoverflow.com/questions/49590552/how-buildenv-builtin-function-works), with link to the source. The Nixpkgs source comment states that it was forked from Nix `buildenv`, and all changes should be contributed back. The comment is 12 years old, and the sources have diverged substantially.
 
-Manifests are not covered at all. Maybe in the thesis? Hits from the manuals:
+Manifests are not covered at all. Maybe in the thesis? (UPDATE: it does cover them.) Hits from the manuals:
 
  + Nixpkgs manual: 1 occurence, may not even refer to Nix manifests.
 
@@ -16,6 +16,10 @@ Manifests are not covered at all. Maybe in the thesis? Hits from the manuals:
  + NixOps manual: 0
 
  + Nix manual: 20 hits. The only hit not in release notes is "*https://stackoverflow.com/questions/49590552/how-buildenv-builtin-function-works*". The most recent release note occurence suggests that manifests are not used for certain operations, if I read that right. See [C.3. Release 2.0 (2018-02-22)](https://nixos.org/nix/manual/#ssec-relnotes-2.0).
+
+#### Basic Unix commands (e.g., `namei`)
+
+Can be found in the `util-linux` package. Not documented anywhere, unless you know your way around linux.
 
 #### heap
 
