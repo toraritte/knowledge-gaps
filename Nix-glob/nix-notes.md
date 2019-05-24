@@ -1,3 +1,5 @@
+This is a semi-structured mess of notes, and the clean up is in the plans.
+
 ### TODO
 
 #### `nix.conf`, `config.nix`, and `configuration.nix`
@@ -48,6 +50,10 @@ The [`buildEnv` source](https://github.com/NixOS/nixpkgs/blob/master/pkgs/build-
  + `runCommand`
    Completely in the black on this one. The source shows that there is also a `runCommand` input argument, so just need to follow it I guess.
    Where is `"profile"` parameter coming from? Or is it just arbitrary because it gives a name to something?
+#### Notes to [Chapter 12. Overlays](https://nixos.org/nixpkgs/manual/#chap-overlays)
+
+> "*Overlays are used to add layers in **the fixed-point used by Nixpkgs** to compose the set of all packages.*"
+Fixed-point as in "pinning Nixpkgs"? Don't even really understand what the latter means, hence the quotes.
 
 #### heap
 
