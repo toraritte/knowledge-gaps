@@ -15,7 +15,7 @@ Manifests are not covered at all. Maybe in the thesis? (UPDATE: it does cover th
 
  + NixOps manual: 0
 
- + Nix manual: 20 hits. The only hit not in release notes is "*https://stackoverflow.com/questions/49590552/how-buildenv-builtin-function-works*". The most recent release note occurence suggests that manifests are not used for certain operations, if I read that right. See [C.3. Release 2.0 (2018-02-22)](https://nixos.org/nix/manual/#ssec-relnotes-2.0).
+ + Nix manual: 20 hits. The only hit not in release notes is "*https://stackoverflow.com/questions/49590552/how-buildenv-builtin-function-works*". The most recent release note occurence suggests that manifests are not used for certain operations, if I read that right. See [C.3. Release 2.0 (2018-02-22)](https://nixos.org/nix/manual/#ssec-relnotes-2.0). There's a link to a specific commit by Eelco Dolstra stating "*Manifests have been superseded by binary caches for years. This also gets rid of nix-pull, nix-generate-patches and bsdiff/bspatch.*" But I can still find `*manifest.nix` files in `/nix/store`. Read the thesis, and get into the source.
 
 #### Basic Unix commands (e.g., `namei`)
 
