@@ -1,7 +1,21 @@
 ### TODO
 
 #### `nix.conf`, `config.nix`, and `configuration.nix`
-The [`nix.conf`](https://nixos.org/nix/manual/#name-11) doc states that "*Nix reads settings from two configuration files*", but it depends also whether or not NixOS is the underlying OS. In that case, the config file is `/etc/nixos/configuration.nix`. The only place where this distinction is clarified is in [14.3.1. Tested using sandboxing](https://nixos.org/nixpkgs/manual/#submitting-changes-tested-with-sandbox) in the Nixpkgs manual. The third player, `config.nix`, is introduced by [6.6. Declarative Package Management](https://nixos.org/nixpkgs/manual/#sec-declarative-package-management).
+The [`nix.conf`](https://nixos.org/nix/manual/#name-11) doc states that "*Nix reads settings from two configuration files*", but it depends also whether or not NixOS is the underlying OS. In that case, the config file is `/etc/nixos/configuration.nix`. The only place where this distinction is clarified is in [14.3.1. Tested using sandboxing](https://nixos.org/nixpkgs/manual/#submitting-changes-tested-with-sandbox) in the Nixpkgs manual. The third player, `config.nix`, is introduced by [6.6. Declarative Package Management](https://nixos.org/nixpkgs/manual/#sec-declarative-package-management). It gets more confusing because the main [Chapter 6. Global configuration](https://nixos.org/nixpkgs/manual/#chap-packageconfig) introduces `~/.config/nixpkgs/config.nix` that doesn't seem to work. Also shows examples using `alloBroken`, `allowUnfree` options, but where do they come from? Just from the NixOS options?
+
+#### `buildEnv` and manifests
+
+`buildEnv` is not documented, only description is in [6.6. Declarative Package Management](https://nixos.org/nixpkgs/manual/#sec-declarative-package-management). Good SO thread is [here](https://stackoverflow.com/questions/49590552/how-buildenv-builtin-function-works), with link to the source. The Nixpkgs source comment states that it was forked from Nix `buildenv`, and all changes should be contributed back. The comment is 12 years old, and the sources have diverged substantially.
+
+Manifests are not covered at all. Maybe in the thesis? Hits from the manuals:
+
+ + Nixpkgs manual: 1 occurence, may not even refer to Nix manifests.
+
+ + NixOS manual: 0
+
+ + NixOps manual: 0
+
+ + Nix manual: 20 hits. The only hit not in release notes is "*https://stackoverflow.com/questions/49590552/how-buildenv-builtin-function-works*". The most recent release note occurence suggests that manifests are not used for certain operations, if I read that right. See [C.3. Release 2.0 (2018-02-22)](https://nixos.org/nix/manual/#ssec-relnotes-2.0).
 
 #### heap
 
