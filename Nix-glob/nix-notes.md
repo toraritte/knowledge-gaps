@@ -21,6 +21,34 @@ Manifests are not covered at all. Maybe in the thesis? (UPDATE: it does cover th
 
 Can be found in the `util-linux` package. Not documented anywhere, unless you know your way around linux.
 
+#### `packageOverrides` confusion in Nixpkgs manual
+
+First of all, [6.6. Declarative Package Management](https://nixos.org/nixpkgs/manual/#sec-declarative-package-management) is superseded by [Chapter 12. Overlays](https://nixos.org/nixpkgs/manual/#chap-overlays), see more on it [here](https://discourse.nixos.org/t/declarative-package-management-for-normal-users/1823/9?u=toraritte).
+
+[6.5. Modify packages via packageOverrides](https://nixos.org/nixpkgs/manual/#sec-modify-via-packageOverrides) introduces `packageOverrides` by overriding a package (starting with `packageOverrides = pkgs: rec {`). 6.6 injects the `pkgs` attributes in the local scope (`packageOverrides = pkgs: with pkgs; {`), but still refers to `buildEnv` as `pkgs.buildEnv`. According to the `nix repl`, they are the same (see below), but is there a difference?
+
+```text
+nix-repl> pkgs = import <nixpkgs> {}
+
+nix-repl> pkgs.buildEnv {}           
+error: anonymous function at /nix/store/ywlfq2ns4a3fzb2ap74lvahmrg1p0lmk-nixos-19.03.172231.7b36963e7a7/nixos/pkgs/build-support/buildenv/default.nix:8:2 called without required argument 'name', at /nix/store/ywlfq2ns4a3fzb2ap74lvahmrg1p0lmk-nixos-19.03.172231.7b36963e7a7/nixos/lib/customisation.nix:69:12
+
+nix-repl> pkgs.pkgs.buildEnv {}
+error: anonymous function at /nix/store/ywlfq2ns4a3fzb2ap74lvahmrg1p0lmk-nixos-19.03.172231.7b36963e7a7/nixos/pkgs/build-support/buildenv/default.nix:8:2 called without required argument 'name', at /nix/store/ywlfq2ns4a3fzb2ap74lvahmrg1p0lmk-nixos-19.03.172231.7b36963e7a7/nixos/lib/customisation.nix:69:12
+```
+
+The [`buildEnv` source](https://github.com/NixOS/nixpkgs/blob/master/pkgs/build-support/buildenv/default.nix) is good to have around because it is not documented (see above).
+
+ + `pathsToLink`
+   Where does it link stuff? At this point find time to actually build a package, to know what the terminology means exactly.
+
+ + `extraOutputsToInstall`
+   See `pathsToLink` comment above.
+
+ + `runCommand`
+   Completely in the black on this one. The source shows that there is also a `runCommand` input argument, so just need to follow it I guess.
+   Where is `"profile"` parameter coming from? Or is it just arbitrary because it gives a name to something?
+
 #### heap
 
  + **Make references to claims.**
