@@ -14,6 +14,12 @@ A  B  A->B
 
 So `assert aFeature -> dep != null;` makes sure that `dep` is also passed in the arguments if `aFeature` is `true` (i.e., requested), but doesn't provide any information whether `aFeature` is `true` or `false`. Logical implication statement is false if and only if statement A is true, and statement B is false. That is, `aFeature` is requested, but a required dependency is not specified in `dep`. This is the only case when the value of `aFeature` is known (`true`), therefore checking for its value is necessary if assertions succeed.
 
+### How many ways can different versions of the same component be present in the system? (Add use cases as well.)
+
+1. switch profiles
+2. build specific dev environments with `nix-shell`
+3. what else?
+
 ### TODO
 
 #### `nix.conf`, `config.nix`, and `configuration.nix`
