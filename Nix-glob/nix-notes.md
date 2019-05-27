@@ -1,5 +1,19 @@
 This is a semi-structured mess of notes, and the clean up is in the plans.
 
+### (PhD thesis, page 32, figure 2.9, [21] line) Why check whether optional feature enabled (e.g., sslSupport) after the block of assertions?
+
+"*Assertions enable consistency checking between components and feature selections.*" They only check whether all the conditions are given to continue execution. In this case, whether the input values are consistent according to a certain logic that the component builder expects. According to the ["Assertions" section in the Nix manual](https://nixos.org/nix/manual/#idm140737317867216), in `assert e1; e2` if expression `e1` evaluates to `true`, `e2` is returned; "*otherwise expression evaluation is aborted and a backtrace is printed.*"
+
+In [21] (and below) the `->` logical implication operator is used, and the truth table for logical implication is:
+
+A  B  A->B
+0  0    1
+0  1    1
+1  0    0
+1  1    1
+
+So `assert aFeature -> dep != null;` makes sure that `dep` is also passed in the arguments if `aFeature` is `true` (i.e., requested), but doesn't provide any information whether `aFeature` is `true` or `false`. Logical implication statement is false if and only if statement A is true, and statement B is false. That is, `aFeature` is requested, but a required dependency is not specified in `dep`. This is the only case when the value of `aFeature` is known (`true`), therefore checking for its value is necessary if assertions succeed.
+
 ### TODO
 
 #### `nix.conf`, `config.nix`, and `configuration.nix`
