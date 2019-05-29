@@ -29,15 +29,146 @@ The [`nix.conf`](https://nixos.org/nix/manual/#name-11) doc states that "*Nix re
 
 `buildEnv` is not documented, only description is in [6.6. Declarative Package Management](https://nixos.org/nixpkgs/manual/#sec-declarative-package-management). Good SO thread is [here](https://stackoverflow.com/questions/49590552/how-buildenv-builtin-function-works), with link to the source. The Nixpkgs source comment states that it was forked from Nix `buildenv`, and all changes should be contributed back. The comment is 12 years old, and the sources have diverged substantially.
 
-Manifests are not covered at all. Maybe in the thesis? (UPDATE: it does cover them.) Hits from the manuals:
+Manifests are not covered at all. Maybe in the thesis? (UPDATE: it does seem to cover them.) Hits from the manuals:
 
- + Nixpkgs manual: 1 occurence, may not even refer to Nix manifests.
+   + Nixpkgs manual: 1 occurence, may not even refer to Nix manifests.
 
- + NixOS manual: 0
+   + NixOS manual: 0
 
- + NixOps manual: 0
+   + NixOps manual: 0
 
- + Nix manual: 20 hits. The only hit not in release notes is "*https://stackoverflow.com/questions/49590552/how-buildenv-builtin-function-works*". The most recent release note occurence suggests that manifests are not used for certain operations, if I read that right. See [C.3. Release 2.0 (2018-02-22)](https://nixos.org/nix/manual/#ssec-relnotes-2.0). There's a link to a specific commit by Eelco Dolstra stating "*Manifests have been superseded by binary caches for years. This also gets rid of nix-pull, nix-generate-patches and bsdiff/bspatch.*" But I can still find `*manifest.nix` files in `/nix/store`. Read the thesis, and get into the source.
+   + Nix manual: 20 hits.
+
+     The only hit not in release notes is "*A Nix channel is just a URL that points to a place that contains a set of Nix expressions and a manifest.*" in [Chapter 12. Channels](https://nixos.org/nix/manual/#sec-channels).
+
+     From [C.3. Release 2.0 (2018-02-22)](https://nixos.org/nix/manual/#ssec-relnotes-2.0):
+
+     > The     manifest-based     substituter     mechanism
+     > (download-using-manifests) has been  [removed](https://github.com/NixOS/nix/commit/867967265b80946dfe1db72d40324b4f9af988ed). It has
+     > been  superseded  by  the binary  cache  substituter
+     > mechanism  since several  years.  As  a result,  the
+     > following programs have been removed:
+     > 
+     > * nix-pull
+     > 
+     > * nix-generate-patches
+     > 
+     > * bsdiff
+     > 
+     > * bspatch
+
+     The link on "removed" above points to a specific commit by Eelco Dolstra stating "*Manifests have been superseded by binary caches for years. This also gets rid of `nix-pull`, `nix-generate-patches` and `bsdiff/bspatch`.*"
+
+     From [C.16. Release 1.2 (2012-12-06)](https://nixos.org/nix/manual/#ssec-relnotes-1.2):
+
+     > Nix  has a  new  binary  substituter mechanism:  the
+     > *binary  cache*. A  binary cache  contains pre-built
+     > binaries  of Nix  packages.  Whenever  Nix wants  to
+     > build a missing Nix store  path, it will check a set
+     > of  `binary caches`  to see  if  any of  them has  a
+     > pre-built  binary of  that  path. The  configuration
+     > setting  binary-caches contains  a list  of URLs  of
+     > binary caches. For instance, doing
+     > ```text
+     > $ nix-env -i thunderbird --option binary-caches http://cache.nixos.org
+     > ```
+     > will  install  Thunderbird   and  its  dependencies,
+     > using   the   available    pre-built   binaries   in
+     > http://cache.nixos.org. The main  advantage over the
+     > old  “manifest”-based  method of  getting  pre-built
+     > binaries is that you don’t  have to worry about your
+     > manifest  being in  sync  with  the Nix  expressions
+     > you’re installing from; i.e.,  you don’t need to run
+     > `nix-pull` to  update your manifest. It’s  also more
+     > scalable  because you  don’t  need  to redownload  a
+     > giant manifest file every time.
+     > 
+     > A Nix  channel can provide  a binary cache  URL that
+     > will be used automatically  if you subscribe to that
+     > channel. If  you use  the Nixpkgs or  NixOS channels
+     > (http://nixos.org/channels)  you  automatically  get
+     > the cache http://cache.nixos.org.
+     > 
+     > Binary caches are created using `nix-push`. For details
+     > on the operation and format of binary caches, see the
+     > `nix-push` manpage. More details are provided in
+     > [this nix-dev posting](https://nixos.org/nix-dev/2012-September/009826.html).
+
+     Older release notes reference the above deprecated manifest usage. Which raises some questions:
+     + What are manifests currently used for?
+     + Are these (the deprecated and what is documented below) manifest mechanisms completely different (syntax, etc.), and only the same in name only?
+
+Found the following manifest files in the store:
+
+```text
+$ sudo find /nix -name '*manifest.nix' -exec ls -l {} \;
+lrwxrwxrwx 1 a_user a_user 60 Dec 31  1969 /nix/store/n14118izbvcj3936k886bbnpaq15vlp3-user-environment/manifest.nix -> /nix/store/3s5p73g4q1prh9j0w3ig8f79c7v3jpf5-env-manifest.nix
+lrwxrwxrwx 1 a_user a_user 60 Dec 31  1969 /nix/store/fivnzgs28v93kdldm0287ycl71phjbfb-user-environment/manifest.nix -> /nix/store/vw37yvlwc413f5basmsrdbzng1r5qd2c-env-manifest.nix
+-r--r--r-- 1 a_user a_user 29875 Dec 31  1969 /nix/store/3s5p73g4q1prh9j0w3ig8f79c7v3jpf5-env-manifest.nix
+-r--r--r-- 1 a_user a_user 326 Dec 31  1969 /nix/store/vw37yvlwc413f5basmsrdbzng1r5qd2c-env-manifest.nix
+```
+
+The original `find` pattern was `'*manifest*'` but it was clear from the results that most of them were not relevant. There is no way to query whether symlinks exist pointing to a specific file, but I assumed that there have to be links existing to the above files from my home dir (on Ubuntu as a single Nix user).
+
+Found two `manifest.nix`s: one for the user environment, and one for the channels. Their format is the same.
+
+```text
+$ tree -afl .nix-profile | grep -i 'manifest.nix'
+├── .nix-profile/manifest.nix -> /nix/store/3s5p73g4q1prh9j0w3ig8f79c7v3jpf5-env-manifest.nix
+
+$ namei .nix-profile/manifest.nix
+f: .nix-profile/manifest.nix
+ l .nix-profile -> /nix/var/nix/profiles/per-user/a_user/profile
+   d /
+   d nix
+   d var
+   d nix
+   d profiles
+   d per-user
+   d a_user
+   l profile -> profile-45-link
+     l profile-45-link -> /nix/store/n14118izbvcj3936k886bbnpaq15vlp3-user-environment
+       d /
+       d nix
+       d store
+       d n14118izbvcj3936k886bbnpaq15vlp3-user-environment
+ l manifest.nix -> /nix/store/3s5p73g4q1prh9j0w3ig8f79c7v3jpf5-env-manifest.nix
+   d /
+   d nix
+   d store
+   - 3s5p73g4q1prh9j0w3ig8f79c7v3jpf5-env-manifest.nix
+
+$ tree -afl .nix-defexpr/ | grep -i 'manifest.nix'
+│   ├── /nix/var/nix/profiles/per-user/a_user/channels/manifest.nix -> /nix/store/vw37yvlwc413f5basmsrdbzng1r5qd2c-env-manifest.nix
+
+$ namei .nix-defexpr/channels/manifest.nix
+f: .nix-defexpr/channels/manifest.nix
+ d .nix-defexpr
+ l channels -> /nix/var/nix/profiles/per-user/a_user/channels
+   d /
+   d nix
+   d var
+   d nix
+   d profiles
+   d per-user
+   d a_user
+   l channels -> channels-5-link
+     l channels-5-link -> /nix/store/fivnzgs28v93kdldm0287ycl71phjbfb-user-environment
+       d /
+       d nix
+       d store
+       d fivnzgs28v93kdldm0287ycl71phjbfb-user-environment
+ l manifest.nix -> /nix/store/vw37yvlwc413f5basmsrdbzng1r5qd2c-env-manifest.nix
+   d /
+   d nix
+   d store
+   - vw37yvlwc413f5basmsrdbzng1r5qd2c-env-manifest.nix
+
+$ tree -af .nix-defexpr/
+.nix-defexpr
+├── .nix-defexpr/channels -> /nix/var/nix/profiles/per-user/a_user/channels
+└── .nix-defexpr/channels_root -> /nix/var/nix/profiles/per-user/root/channels
+```
 
 #### Basic Unix commands (e.g., `namei`)
 
