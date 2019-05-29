@@ -9,6 +9,5 @@ Also didn't find docs for the `signalwire` executable:
 freeswitch@tr2> signalwire
 
 [             adopted]  [            adoption]  [               debug]  [               kslog]
-[              reload]  [               token]  [              update]
-```
+[              reload]  [               token]  [              update]```
 
