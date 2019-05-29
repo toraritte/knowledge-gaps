@@ -110,7 +110,9 @@ lrwxrwxrwx 1 a_user a_user 60 Dec 31  1969 /nix/store/fivnzgs28v93kdldm0287ycl71
 
 The original `find` pattern was `'*manifest*'` but it was clear from the results that most of them were not relevant. There is no way to query whether symlinks exist pointing to a specific file, but I assumed that there have to be links existing to the above files from my home dir (on Ubuntu as a single Nix user).
 
-Found two `manifest.nix`s: one for the user environment, and one for the channels. Their format is the same.
+Found two `manifest.nix`s: one for the user environment, and one for the channels. Their format seems to be the same.
+
+Still at the beginning in the PhD, so will update when I know more.
 
 ```text
 $ tree -afl .nix-profile | grep -i 'manifest.nix'
