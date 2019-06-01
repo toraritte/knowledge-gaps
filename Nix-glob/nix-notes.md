@@ -39,6 +39,12 @@ $ nix-shell '<nixpkgs>' -A elmPackages.elm
 
 There is a lot to figure out...
 
+### Questions
+
+ + NUR vs overlays vs flakes?
+
+ + I'm always confused when using `nix-*` commands and don't know what to put there (e.g., when attributes are expected, sometimes saw `pkgs.a_package`, `a_package` or something completely else)
+
 ### (PhD thesis, page 32, figure 2.9, [21] line) Why check whether optional feature enabled (e.g., sslSupport) after the block of assertions?
 
 "*Assertions enable consistency checking between components and feature selections.*" They only check whether all the conditions are given to continue execution. In this case, whether the input values are consistent according to a certain logic that the component builder expects. According to the ["Assertions" section in the Nix manual](https://nixos.org/nix/manual/#idm140737317867216), in `assert e1; e2` if expression `e1` evaluates to `true`, `e2` is returned; "*otherwise expression evaluation is aborted and a backtrace is printed.*"
