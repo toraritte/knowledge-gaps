@@ -39,6 +39,20 @@ $ nix-shell '<nixpkgs>' -A elmPackages.elm
 
 There is a lot to figure out...
 
+#### Related: `pkgs.(...)` vs top-level attributes
+
+```text
+$ nix repl '<nixpkgs>'
+Welcome to Nix version 2.2.2. Type :? for help.
+
+Loading '<nixpkgs>'...
+Added 10079 variables.
+
+nix-repl>
+```
+
+See `pkgs.beamPackages` vs `beamPackages` for example. Are they the same?
+
 ### Questions
 
  + NUR vs overlays vs flakes?
