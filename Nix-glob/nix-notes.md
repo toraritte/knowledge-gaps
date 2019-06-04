@@ -53,6 +53,12 @@ nix-repl>
 
 See `pkgs.beamPackages` vs `beamPackages` for example. Are they the same?
 
+#### `mkShell` vs `mkDerivation`
+
+"*all [`mkShell`] does is provide some defaults for a `stdenv.mkDerivation`. So you don’t need to give it a `src` or `name`, all you really need is `buildInputs`, maybe a `shellHook` that runs when you enter the `nix-shell`, and any env variables you want.*" (from [mkShell vs. buildEnv?](https://discourse.nixos.org/t/mkshell-vs-buildenv/681))
+
+See [Nixpkgs issue](https://github.com/NixOS/nixpkgs/issues/58624) for improving the `mkShell` docs.
+
 #### Annotated `shell.nix` examples
 
 ##### https://www.slideshare.net/mbbx6spp/from-zero-to-production-nixos-erlang-erlang-factory-sf-2016/46
