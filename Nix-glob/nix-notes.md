@@ -1,5 +1,44 @@
 This is a semi-structured mess of notes, and the clean up is in the plans.
 
+### `nix-shell` won't find packages that `nix-env` would (on NixOS)
+
+```text
+$ nix-env -i elm
+# (... doing the business ...)
+
+$ nix-shell -p elm
+error: undefined variable 'elm' at (string):1:94
+(use '--show-trace' to show detailed location information)
+```
+
+See entire [[Nix-dev] mailing list thread](https://nixos.org/nix-dev/2016-March/020075.html) for the root cause, and the solution is to manually feed the location of the main Nixpkgs expression:
+
+```text
+$ nix-shell '<nixpkgs>' -A elmPackages.elm
+```
+
+#### (nixos|nixpkgs|...)`.elmPackages.elm` =/= `elmPackages.elm`
+
+I had the idea of the same workaround as above, but because I wasn't sure about the exact name of the attribute, started with looking around first:
+
+```text
+$ nix-env -qaP | grep elm
+# ... omitting some results
+nixpkgs-unstable.elmPackages.elm        elm-0.19.0
+nixos-unstable.elmPackages.elm          elm-0.19.0
+nixos.elmPackages.elm                   elm-0.19.0
+
+$ nix-shell '<nixpkgs>' -A nixos.elmPackages.elm
+error: the expression selected by the selection path 'nixos.elmPackages.elm' should be a set but is a function
+
+# but
+
+$ nix-shell '<nixpkgs>' -A elmPackages.elm
+# works
+```
+
+There is a lot to figure out...
+
 ### (PhD thesis, page 32, figure 2.9, [21] line) Why check whether optional feature enabled (e.g., sslSupport) after the block of assertions?
 
 "*Assertions enable consistency checking between components and feature selections.*" They only check whether all the conditions are given to continue execution. In this case, whether the input values are consistent according to a certain logic that the component builder expects. According to the ["Assertions" section in the Nix manual](https://nixos.org/nix/manual/#idm140737317867216), in `assert e1; e2` if expression `e1` evaluates to `true`, `e2` is returned; "*otherwise expression evaluation is aborted and a backtrace is printed.*"
