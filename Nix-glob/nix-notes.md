@@ -53,6 +53,78 @@ nix-repl>
 
 See `pkgs.beamPackages` vs `beamPackages` for example. Are they the same?
 
+#### Annotated `shell.nix` examples
+
+##### https://www.slideshare.net/mbbx6spp/from-zero-to-production-nixos-erlang-erlang-factory-sf-2016/46
+
+```nix
+# { `pkgs ? import <nixpkgs> {}`,
+# ============================
+# If  `pkgs`   is  not   supplied,  the   default  Nix
+# expression is  supplied in NIX_PATH  (see "QUESTION:
+# Where does `'<nixpkgs>'` come from?").
+#
+# `... }`
+# =======
+# The ellipse (...) specifies "*that the function takes
+# at least the listed attributes, while ignoring additional
+# attributes.*" See ["Functions" section in the Nix manual](https://nixos.org/nix/manual/#ss-functions).
+{ pkgs ? import <nixpkgs> {}, ... }:
+let
+  # Same as
+  #
+  #   stdenv = pkgs.stdenv;
+  #
+  # See ["Inheriting attributes" section in Nix manual](https://nixos.org/nix/manual/#idm140737317900368).
+  inherit (pkgs) stdenv;
+in stdenv.mkDerivation {
+  name = "myerlprj-devenv";
+
+  # `with` will dump all of `pkgs`'s attributes into the current scope
+  buildInputs = with pkgs; [
+    gitFull         # Developer dependedency
+    erlangR18       # Erlang version to use
+    hex2nix rebar3  # Erlang dev cycle tools
+    postgresql      # RDBMS
+    elmPackages.elm # for front-end compiler
+  ];
+
+  # The above snippet could have been written as
+  # 
+  # { pkgs ? import <nixpkgs> {}, ... }:
+  # with pkgs;
+  # stdenv.mkDerivation = {
+  #   name = "myerlprj-devenv";
+  #   buildInputs = [
+  #     # ...
+  #   ];
+  #
+  # The  original  is  more  verbose,  but  it  controls
+  # the  scope  more  explicitly, making  it  easier  to
+  # figure out the origins of attributes. The simplified
+  # version is  shorter, but  if the expression  is long
+  # and other `with` expressions` are in use then it can
+  # be confusing where things come from.
+
+  # ...
+
+  # See [`nix-shell` command description](https://nixos.org/nix/manual/#description-13)
+  shellHook = ''
+    export SERVICE_PORT=4444
+    export DATABASE_PORT=5432
+    export DATABASE_PATH=$PWD/data
+    export LOG_PATH=$PWD/log
+    if [ ! -d "${DATABASE_PATH}" ]; then
+      initdb "${DATABASE_PATH}"
+    fi
+    pg_ctl -D "${DATABASE_PATH}" \
+           -l "${LOG_PATH}" \
+           -o --path="${DATABASE_PORT}" start
+  '';
+}
+
+```
+
 ### Questions
 
  + NUR vs overlays vs flakes?
