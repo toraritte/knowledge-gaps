@@ -1,5 +1,21 @@
 This is a semi-structured mess of notes, and the clean up is in the plans.
 
+### What is a "package set"?
+
+First saw it ["9.2. BEAM Languages"](https://nixos.org/nixpkgs/manual/#sec-beam), but the term is just used out of nothing in Nixpkgs manual. Am I just overcomplicating things, and it only means "collection of packages", such as Nixpkgs?
+
+Occurences:
+
++ Nix manual: 0
+
++ NixOS manual: 1
+
+  In [21.1.2. Adding Packages to Emacs](https://nixos.org/nixos/manual/#module-services-emacs-adding-packages): "* 3 This generates an emacsWithPackages function. It takes a single argument: a function from a package set to a list of packages (the packages that will be available in Emacs).*"
+
++ Nixpkgs manual: 68 (probably the best source to figure out the meaning from the context)
+
++ Thesis: 0
+
 ### `nix-shell` won't find packages that `nix-env` would (on NixOS)
 
 ```text
