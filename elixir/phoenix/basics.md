@@ -14,6 +14,9 @@ connection
 > functions that perform the right task
 (*action*, in Phoenix parlance)
 
+> Plugs are functions.
+> Your web applications are pipelines of plugs.
+
 ```text
 ```
 
