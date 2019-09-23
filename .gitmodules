@@ -1,0 +1,3 @@
+[submodule "purescript-book-notes-and-solutions"]
+	path = purescript-book-notes-and-solutions
+	url = https://github.com/toraritte/purescript-book.git
