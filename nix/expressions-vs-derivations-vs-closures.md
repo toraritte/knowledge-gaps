@@ -7,13 +7,35 @@ Found the clearest definitions in
 but here's the direct link:
 [The Purely Functional Software Deployment Model (2006)](https://medium.com/r/?url=https%3A%2F%2Fnixos.org%2F~eelco%2Fpubs%2Fphd-thesis.pdf).
 
-Expressions
-Nix expressions is a simple purely functional language used to describe components and the compositions thereof.
-[…]
-Generally, to deploy a component [using Nix] one performs the following three steps: 
-1. Write a Nix expression for the component (Figure 2.6), which describes all the inputs involved in building the component, such as dependencies (other components required by the component), sources, and so on.
-2. Write a builder (Figure 2.7) - typically a shell script - that actually builds the component from the inputs.
-3. Create a composition (Figure 2.8). The Nix expression written in the first step is a function: in order to build a concrete component, it requires that the dependencies are filled in. To compose the component with its dependencies, we must write another Nix expression that calls the function with appropriate arguments.
+## Expressions
+
+From _2.2 Nix expression_:
+
+> Nix  expressions  is   a  simple  purely  functional
+> language  used   to  describe  components   and  the
+> compositions thereof.
+
+> Generally,  to deploy  a component  [using Nix]  one
+> performs the following three steps: 
+>
+>   1. Write  a Nix  expression for  the component  (Figure
+>      2.6),  which describes  all the  inputs involved  in
+>      building the component,  such as dependencies (other
+>      components required by  the component), sources, and
+>      so on.
+>
+>   2. Write  a builder  (Figure 2.7)  - typically  a shell
+>      script - that actually builds the component from the
+>      inputs.
+>
+>   3. Create   a  composition   (Figure   2.8).  The   Nix
+>      expression written in the  first step is a function:
+>      in order to build  a concrete component, it requires
+>      that the dependencies are  filled in. To compose the
+>      component  with  its  dependencies,  we  must  write
+>      another Nix expression that  calls the function with
+>      appropriate arguments.
+
 Closures
 The goal of complete deployment: safe deployment requires that there are no missing dependencies. This means that we need to deploy closures of components under the "depends-on" relation. That is, when we deploy (i.e., copy) a component X to a client machine, and X depends on Y, then we also need to deploy Y to the client machine.
 Derivations
