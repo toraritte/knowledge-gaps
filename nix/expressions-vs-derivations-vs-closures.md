@@ -48,26 +48,28 @@ From section "_2.2 Nix expression_":
 > compositions thereof.
 
 > ```text
-> What are components?
-> ====================
->
-From "3.1 What is a component?":
->
-> >  A software component is
-> >
-> >         *----------------------------------*
-> >     1.  | a software artifact that is      |
-> >         | subject to automatic composition |
-> >         *----------------------------------*
-> >
-> >         It can require, and be required by,
-> >         other components.
-> >
-> >         *----------------------*
-> >     2.  | a unit of deployment |
-> >         *----------------------*
->
-> Worth to read the entire section.
+> *--------------------------------------------------------------------*
+> | What are components?                                               |
+> | ====================                                               |
+> |                                                                    |
+> | From "3.1 What is a component?":                                   |
+> |                                                                    |
+> | >  A software component is                                         |
+> | >                                                                  |
+> | >         *----------------------------------*                     |
+> | >     1.  | a software artifact that is      |                     |
+> | >         | subject to automatic composition |                     |
+> | >         *----------------------------------*                     |
+> | >                                                                  |
+> | >         It can require, and be required by,                      |
+> | >         other components.                                        |
+> | >                                                                  |
+> | >         *----------------------*                                 |
+> | >     2.  | a unit of deployment |                                 |
+> | >         *----------------------*                                 |
+> |                                                                    |
+> | Worth to read the entire section.                                  |
+> *--------------------------------------------------------------------*
 > ```
 
 Jumping back to "_2.2 Nix expression_", it continues
