@@ -49,18 +49,28 @@ From section "_2.2 Nix expression_":
 
 -------
 
-> ### What are components?
+> ```text
+> What are components?
+> ====================
 >
 > The  definition  below  is  from  "_3.1  What  is  a
 > component?_",  and it  is worth  to read  the entire
 > section.
 >
-> >  • A software component is **a software artifact that is
-> >    subject to automatic composition**. It can require, and
-> >    be required by, other components.
+> >  A software component is
 > >
-> >   • A software component is a **unit of deployment**.
-
+> >         *----------------------------------*
+> >     1.  | a software artifact that is      |
+> >         | subject to automatic composition |
+> >         *----------------------------------*
+> >
+> >         It can require, and be required by,
+> >         other components.
+> >
+> >         *----------------------*
+> >     2.  | a unit of deployment |
+> >         *----------------------*
+> ```
 -------
 
 Jumping back to "_2.2 Nix expression_", it continues
