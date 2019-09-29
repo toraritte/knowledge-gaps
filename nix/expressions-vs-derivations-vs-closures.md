@@ -50,10 +50,11 @@ language-agnostic recipe for  how to build something
 
 ## Nix expressions
 
+From section "_2.2 Nix expression_":
+
 > Nix expressions  is  a  simple  **purely  functional
 > language** used  to  describe  components   and  the
 > compositions thereof.
- - (Section "_2.2 Nix expression_")
 
 -------
 
@@ -158,10 +159,37 @@ each other:
 From "_2.2 Nix expressions_":
 
 > The  result   of  the   function  [in  STEP   1]  is
-> a   **_derivation_**.  This   is  Nix-speak   for  a
+> a   **derivation**.  This   is  Nix-speak   for  a
 > **component  build  action**,  which  _derives_  the
 > component from its inputs.
+
+Continuing in "_2.4 Store derivations_":
+
+> Nix expressions are not built directly; rather, they
+> are  translated to  the more  primitive language  of
+> **_tore derivations**, which encode single component
+> build actions.
+
+![Flow diagram of derivation creation](./figure_2-12.png)
+
+Taking Figure 2.6 as an example,
+
+> ```nix
+> {stdenv, fetchurl, perl}:
 >
+> stdenv.mkDerivation {
+>   name = "hello-2.1.1";
+>   builder = ./builder.sh;
+>   src = fetchurl {
+>     url = http://ftp.gnu.org/pub/gnu/hello/hello-2.1.1.tar.gz;
+>     md5 = "70c9ccf9fac07f762c24f2df2290784d";
+>   };
+>   inherit perl;
+> }
+> ```
+
+
+
 > We     perform    a     derivation    by     calling
 > `stdenv.mkDerivation`. `mkDerivation`  is a function
 > provided  by stdenv  that  builds  a component  from
