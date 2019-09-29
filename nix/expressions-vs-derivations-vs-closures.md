@@ -9,6 +9,36 @@ but here's the direct link:
 
 Emphases all mine.
 
+## Summary
+
+A **derivation**  is a  set of instructions,  in the
+form  of  **Nix  expressions**,  specifying  how  to
+build  a **software  component** (package,  project,
+application, etc.).
+[To quote Gabriel Gonzalez](https://github.com/Gabriel439/haskell-nix/pull/39#issuecomment-357790605):
+"_You   can    think   of   a   derivation    as   a
+language-agnostic recipe for  how to build something
+(such as a Haskell package)._"
+
+> TODO: closure summary
+
+Technically (see next sections),
+
+```text
+
+  DERIVATION =/= NIX EXPRESSION
+```
+
+but Nix expressions produce derivations, therefore they are commonly called derivations as well.
+
+> TODO 2019-09-29_0800
+>
+> Are   there   any   Nix   expressions   that   don't
+> ultimately  result in  derivations?  There are  ones
+> that  only  indirectly  produce  derivations  (e.g.,
+> `all-packages.nix`),  but the  outcome is  the same.
+> Plus that is the only purpose of Nix expression.
+
 ## Expressions
 
 From section "_2.2 Nix expression_":
@@ -93,6 +123,33 @@ each other:
 ```
 
 ## Derivations
+
+From "_2.2 Nix expressions_":
+
+> The  result   of  the   function  [in  STEP   1]  is
+> a   **_derivation_**.  This   is  Nix-speak   for  a
+> **component  build  action**,  which  _derives_  the
+> component from its inputs.
+>
+> We     perform    a     derivation    by     calling
+> `stdenv.mkDerivation`. `mkDerivation`  is a function
+> provided  by stdenv  that  builds  a component  from
+> a  set  of  attributes2.  The  attributes  given  to
+> stdenv.mkDerivation are  the concrete inputs  to the
+> build action.
+
+-------
+
+### Attribute sets
+
+From "_2.2 Nix expressions_":
+
+> An attribute set  is just a list  of key/value pairs
+> where  each value  is an  arbitrary Nix  expression.
+> They  take the  general form  {name1 =  expr1 ;  ...
+> namen = exprn ;}.
+
+-------
 
 ```text
     *-------------------------------------*
