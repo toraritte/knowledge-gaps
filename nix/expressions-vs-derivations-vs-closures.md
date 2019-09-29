@@ -22,9 +22,8 @@ section devoted  to it,  and here  is the  gist from
 "_3.1 What is a component?_":
 
 >  • A software component is  a software artifact that is
->    subject to automatic composition.
->
->    It can require, and be required by, other components.
+>    subject to automatic composition. It can require, and
+>    be required by, other components.
 >
 >   • A software component is a unit of deployment.
 
