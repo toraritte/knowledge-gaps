@@ -187,10 +187,31 @@ Continuing in "_2.4 Store derivations_":
 
 > Nix expressions are not built directly; rather, they
 > are  translated to  the more  primitive language  of
-> **_tore derivations**, which encode single component
+> **store derivations**, which encode single component
 > build actions.
 
+> Figure 2.12 outlines this two-stage build process:
+>
+>  + Stage 1:
+>    
+>    Nix  expressions  are   first  _translated_  to  store
+>    derivations that live in the Nix store and that **each
+>    describe a single build  action with all variability
+>    removed**.
+>    
+>  + Stage 2:
+>    
+>    These  store derivations  can then  be _built_,  which
+>    results in derivation outputs  that also live in the
+>    Nix store.
+
 ![Flow diagram of derivation creation](./figure_2-12.png)
+
+-------
+
+A **derivation** is an intermediate representation of a component build action.
+
+-------
 
 For example, the Nix expression to build the `Hello`
 package in Figure 2.6,
@@ -214,7 +235,7 @@ package in Figure 2.6,
 will  result in  an  intermediate representation  of
 something similar to in Figure 2.13:
 
-> Figure 2.13
+> Figure 2.13 Store derivation
 >
 > ```text
 > { output = "/nix/store/bwacc7a5c5n3...-hello-2.1.1" 25
