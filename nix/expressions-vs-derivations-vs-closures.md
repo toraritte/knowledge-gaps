@@ -11,10 +11,14 @@ Emphases all mine.
 
 ## Summary
 
+-------
+
 A **derivation**  is a  set of instructions,  in the
 form  of  **Nix  expressions**,  specifying  how  to
 build  a **software  component** (package,  project,
 application, etc.).
+
+-------
 
 [To quote Gabriel Gonzalez](https://github.com/Gabriel439/haskell-nix/pull/39#issuecomment-357790605):
 "_You   can    think   of   a   derivation    as   a
@@ -27,8 +31,8 @@ language-agnostic recipe for  how to build something
 > |                                                                    |
 > |   DERIVATION =/= NIX EXPRESSION                                    |
 > |                                                                    |
-> | but Nix  expressions produce  derivations, therefore               |
-> | they are commonly called derivations as well.                      |
+> | but  Nix  expressions  produce  derivations,  therefore  they  are |
+> | commonly called derivations as well.                               |
 > |                                                                    |
 > | See next sections for details.                                     |
 > *--------------------------------------------------------------------*
@@ -52,7 +56,12 @@ From section "_2.2 Nix expression_":
 > language** used  to  describe  components   and  the
 > compositions thereof.
 
-That is, a "Nix expression" is a program written using the constructs of the Nix language.
+-------
+
+That  is, a  "Nix expression"  is a  program written
+using the constructs of the Nix language.
+
+-------
 
 Resources on the Nix language:
 
