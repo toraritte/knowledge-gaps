@@ -21,13 +21,18 @@ application, etc.).
 language-agnostic recipe for  how to build something
 (such as a Haskell package)._"
 
-Technically (see next sections),
-
-```text
-  DERIVATION =/= NIX EXPRESSION
-```
-
-but Nix expressions produce derivations, therefore they are commonly called derivations as well.
+> ```text
+> *--------------------------------------------------------------------*
+> | Technically,                                                       |
+> |                                                                    |
+> |   DERIVATION =/= NIX EXPRESSION                                    |
+> |                                                                    |
+> | but Nix  expressions produce  derivations, therefore               |
+> | they are commonly called derivations as well.                      |
+> |                                                                    |
+> | See next sections for details.                                     |
+> *--------------------------------------------------------------------*
+> ```
 
 > TODO 2019-09-29_0800
 >
@@ -39,7 +44,7 @@ but Nix expressions produce derivations, therefore they are commonly called deri
 
 > TODO: closure summary
 
-## Expressions
+## Nix expressions
 
 From section "_2.2 Nix expression_":
 
