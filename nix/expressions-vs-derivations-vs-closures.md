@@ -15,6 +15,7 @@ A **derivation**  is a  set of instructions,  in the
 form  of  **Nix  expressions**,  specifying  how  to
 build  a **software  component** (package,  project,
 application, etc.).
+
 [To quote Gabriel Gonzalez](https://github.com/Gabriel439/haskell-nix/pull/39#issuecomment-357790605):
 "_You   can    think   of   a   derivation    as   a
 language-agnostic recipe for  how to build something
@@ -25,7 +26,6 @@ language-agnostic recipe for  how to build something
 Technically (see next sections),
 
 ```text
-
   DERIVATION =/= NIX EXPRESSION
 ```
 
