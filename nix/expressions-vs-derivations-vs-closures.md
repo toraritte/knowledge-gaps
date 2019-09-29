@@ -17,15 +17,21 @@ From section "_2.2 Nix expression_":
 > language** used  to  describe  components   and  the
 > compositions thereof.
 
-As  to what  compositions  are, there  is an  entire
-section devoted  to it,  and here  is the  gist from
-"_3.1 What is a component?_":
+-------
 
->  • A software component is  a software artifact that is
->    subject to automatic composition. It can require, and
->    be required by, other components.
+> ### What are components?
 >
->   • A software component is a unit of deployment.
+> The  definition  below  is  from  "_3.1  What  is  a
+> component?_",  and it  is worth  to read  the entire
+> section.
+>
+> >  • A software component is **a software artifact that is
+> >    subject to automatic composition**. It can require, and
+> >    be required by, other components.
+> >
+> >   • A software component is a **unit of deployment**.
+
+-------
 
 Jumping back to "_2.2 Nix expression_", it continues
 with an example  on how Nix expressions  are used by
@@ -39,6 +45,8 @@ the Nix package management system.
 >      building the component,  such as dependencies (other
 >      components required by  the component), sources, and
 >      so on.
+>
+>      **The result of this function is a _derivation_.**
 >
 >   2. Write  a builder  (Figure 2.7)  - typically  a shell
 >      script - that actually builds the component from the
@@ -60,7 +68,13 @@ each other:
     *--------------------------*
     | STEP 3. Composition      |
     |--------------------------|
+    |                          |
+    | Calling the functions    |  (Yeah, "explain it to me
+    | defined in Step 1 with   |   like I'm five".)
+    | concrete arguments.      |
+    |                          |
     | e.g., all-packages.nix   |
+    |                          |
     *--------------------------*
                |
              calls
@@ -78,7 +92,24 @@ each other:
     *------------------------*
 ```
 
-Closures
+## Derivations
+
+```text
+    *-------------------------------------*
+    |  STEP 3. Composition                |
+    |-------------------------------------|
+    |                                     |
+    | (STEP 1 Nix expression) { args } --------O----> derivation_1
+    | (STEP 1 Nix expression) { args } --------U----> derivation_2
+    | (STEP 1 Nix expression) { args } --------T----> derivation_3
+    | (STEP 1 Nix expression) { args } --------P----> derivation_4
+    |        :                            |    U
+    | (STEP 1 Nix expression  { args } --------T----> derivation_N
+    *-------------------------------------*
+```
+
+## Closures
+
 The goal of complete deployment: safe deployment requires that there are no missing dependencies. This means that we need to deploy closures of components under the "depends-on" relation. That is, when we deploy (i.e., copy) a component X to a client machine, and X depends on Y, then we also need to deploy Y to the client machine.
 Derivations
 Nix expressions are not built directly; rather, they are translated to the more primitive language of store derivations, which encode single component build actions. This is analogous to the way that compilers generally do the bulk of their work on simpler intermediate representations of the code being compiled, rather than on a full-blown language with all its complexities. Store derivations are placed in the Nix store, and as such have a store path too. The advantage of this two-level build process is that the paths of store derivations give us a unique identification of objects of source deployment, just as paths of binary components uniquely identify objects of binary deployment.
