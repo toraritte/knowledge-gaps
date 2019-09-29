@@ -50,11 +50,10 @@ language-agnostic recipe for  how to build something
 
 ## Nix expressions
 
-From section "_2.2 Nix expression_":
-
 > Nix expressions  is  a  simple  **purely  functional
 > language** used  to  describe  components   and  the
 > compositions thereof.
+ - (Section "_2.2 Nix expression_")
 
 -------
 
@@ -80,10 +79,10 @@ Resources on the Nix language:
 > |                                                                    |
 > | >  A software component is                                         |
 > | >                                                                  |
-> | >         *----------------------------------*                     |
-> | >     1.  | a software artifact that is      |                     |
-> | >         | subject to automatic composition |                     |
-> | >         *----------------------------------*                     |
+> | >         *--------------------------------------------------*     |
+> | >     1.  | a software artifact that is subject to automatic |     |
+> | >         | composition                                      |     |
+> | >         *--------------------------------------------------*     |
 > | >                                                                  |
 > | >         It can require, and be required by,                      |
 > | >         other components.                                        |
@@ -97,8 +96,7 @@ Resources on the Nix language:
 > ```
 
 Jumping back to "_2.2 Nix expression_", it continues
-with an example  on how Nix expressions  are used by
-the Nix package management system.
+with an example  on how Nix expressions  are used:
 
 > Generally,  to deploy  a component  [using Nix]  one
 > performs the following three steps:
@@ -173,7 +171,7 @@ From "_2.2 Nix expressions_":
 
 -------
 
-### Attribute sets
+### Derivations and attribute sets
 
 From "_2.2 Nix expressions_":
 
@@ -195,6 +193,7 @@ From "_2.2 Nix expressions_":
     | (STEP 1 Nix expression) { args } --------P----> derivation_4
     |        :                            |    U
     | (STEP 1 Nix expression  { args } --------T----> derivation_N
+    |                                     |
     *-------------------------------------*
 ```
 
