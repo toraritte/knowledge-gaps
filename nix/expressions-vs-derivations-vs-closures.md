@@ -47,15 +47,11 @@ From section "_2.2 Nix expression_":
 > language** used  to  describe  components   and  the
 > compositions thereof.
 
--------
-
 > ```text
 > What are components?
 > ====================
 >
-> The  definition  below  is  from  "_3.1  What  is  a
-> component?_",  and it  is worth  to read  the entire
-> section.
+From "3.1 What is a component?":
 >
 > >  A software component is
 > >
@@ -70,8 +66,9 @@ From section "_2.2 Nix expression_":
 > >         *----------------------*
 > >     2.  | a unit of deployment |
 > >         *----------------------*
+>
+> Worth to read the entire section.
 > ```
--------
 
 Jumping back to "_2.2 Nix expression_", it continues
 with an example  on how Nix expressions  are used by
