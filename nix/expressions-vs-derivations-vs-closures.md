@@ -7,16 +7,33 @@ Found the clearest definitions in
 but here's the direct link:
 [The Purely Functional Software Deployment Model (2006)](https://medium.com/r/?url=https%3A%2F%2Fnixos.org%2F~eelco%2Fpubs%2Fphd-thesis.pdf).
 
+Emphases all mine.
+
 ## Expressions
 
-From _2.2 Nix expression_:
+From section "_2.2 Nix expression_":
 
-> Nix  expressions  is   a  simple  purely  functional
-> language  used   to  describe  components   and  the
+> Nix expressions  is  a  simple  **purely  functional
+> language** used  to  describe  components   and  the
 > compositions thereof.
 
+As  to what  compositions  are, there  is an  entire
+section devoted  to it,  and here  is the  gist from
+"_3.1 What is a component?_":
+
+>  • A software component is  a software artifact that is
+>    subject to automatic composition.
+>
+>    It can require, and be required by, other components.
+>
+>   • A software component is a unit of deployment.
+
+Jumping back to "_2.2 Nix expression_", it continues
+with an example  on how Nix expressions  are used by
+the Nix package management system.
+
 > Generally,  to deploy  a component  [using Nix]  one
-> performs the following three steps: 
+> performs the following three steps:
 >
 >   1. Write  a Nix  expression for  the component  (Figure
 >      2.6),  which describes  all the  inputs involved  in
@@ -35,6 +52,32 @@ From _2.2 Nix expression_:
 >      component  with  its  dependencies,  we  must  write
 >      another Nix expression that  calls the function with
 >      appropriate arguments.
+
+The thesis  continues with  a detailed  example, but
+here's a quick overview on how these steps relate to
+each other:
+
+```text
+    *--------------------------*
+    | STEP 3. Composition      |
+    |--------------------------|
+    | e.g., all-packages.nix   |
+    *--------------------------*
+               |
+             calls
+               |
+               V
+    *-----------------------------*
+    | STEP 1. Function definition |
+    *-----------------------------*
+               |
+             calls
+               |
+               V
+    *------------------------*
+    | STEP 2. Builder script |
+    *------------------------*
+```
 
 Closures
 The goal of complete deployment: safe deployment requires that there are no missing dependencies. This means that we need to deploy closures of components under the "depends-on" relation. That is, when we deploy (i.e., copy) a component X to a client machine, and X depends on Y, then we also need to deploy Y to the client machine.
