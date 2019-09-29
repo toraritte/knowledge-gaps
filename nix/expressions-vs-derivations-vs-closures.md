@@ -172,8 +172,11 @@ Continuing in "_2.4 Store derivations_":
 
 ![Flow diagram of derivation creation](./figure_2-12.png)
 
-Taking Figure 2.6 as an example,
+For example, the Nix expression to build the `Hello`
+package in Figure 2.6,
 
+> Figure 2.6
+>
 > ```nix
 > {stdenv, fetchurl, perl}:
 >
@@ -188,7 +191,35 @@ Taking Figure 2.6 as an example,
 > }
 > ```
 
+will  result in  an  intermediate representation  of
+something similar to in Figure 2.13:
 
+> Figure 2.13
+>
+> ```text
+> { output = "/nix/store/bwacc7a5c5n3...-hello-2.1.1" 25
+> , inputDrvs = { 26
+>     "/nix/store/7mwh9alhscz7...-bash-3.0.drv",
+>     "/nix/store/fi8m2vldnrxq...-hello-2.1.1.tar.gz.drv",
+>     "/nix/store/khllx1q519r3...-stdenv-linux.drv",
+>     "/nix/store/mjdfbi6dcyz7...-perl-5.8.6.drv" 27 }
+>   }
+> , inputSrcs = {"/nix/store/d74lr8jfsvdh...-builder.sh"} 28
+> , system = "i686-linux" 29
+> , builder = "/nix/store/3nca8lmpr8gg...-bash-3.0/bin/sh" 30
+> , args = ["-e","/nix/store/d74lr8jfsvdh...-builder.sh"] 31
+> , envVars = { 32
+>     ("builder","/nix/store/3nca8lmpr8gg...-bash-3.0/bin/sh"),
+>     ("name","hello-2.1.1"),
+>     ("out","/nix/store/bwacc7a5c5n3...-hello-2.1.1"),
+>     ("perl","/nix/store/h87pfv8klr4p...-perl-5.8.6"), 33
+>     ("src","/nix/store/h6gq0lmj9lkg...-hello-2.1.1.tar.gz"),
+>     ("stdenv","/nix/store/hhxbaln5n11c...-stdenv-linux"),
+>     ("system","i686-linux"),
+>     ("gtk","/store/8yzprq56x5fa...-gtk+-2.6.6"),
+>   }
+> }
+> ```
 
 > We     perform    a     derivation    by     calling
 > `stdenv.mkDerivation`. `mkDerivation`  is a function
