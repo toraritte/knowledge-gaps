@@ -56,12 +56,32 @@ From section "_2.2 Nix expression_":
 > language** used  to  describe  components   and  the
 > compositions thereof.
 
--------
-
-That  is, a  "Nix expression"  is a  program written
-using the constructs of the Nix language.
+That is,
 
 -------
+
+a "Nix expression" is a program written using the constructs of the Nix language.
+
+-------
+
+For example, the Nix expression to build the `Hello`
+package in Figure 2.6:
+
+> Figure 2.6
+>
+> ```nix
+> {stdenv, fetchurl, perl}:
+>
+> stdenv.mkDerivation {
+>   name = "hello-2.1.1";
+>   builder = ./builder.sh;
+>   src = fetchurl {
+>     url = http://ftp.gnu.org/pub/gnu/hello/hello-2.1.1.tar.gz;
+>     md5 = "70c9ccf9fac07f762c24f2df2290784d";
+>   };
+>   inherit perl;
+> }
+> ```
 
 Resources on the Nix language:
 
