@@ -21,8 +21,6 @@ application, etc.).
 language-agnostic recipe for  how to build something
 (such as a Haskell package)._"
 
-> TODO: closure summary
-
 Technically (see next sections),
 
 ```text
@@ -39,6 +37,8 @@ but Nix expressions produce derivations, therefore they are commonly called deri
 > `all-packages.nix`),  but the  outcome is  the same.
 > Plus that is the only purpose of Nix expression.
 
+> TODO: closure summary
+
 ## Expressions
 
 From section "_2.2 Nix expression_":
@@ -46,6 +46,16 @@ From section "_2.2 Nix expression_":
 > Nix expressions  is  a  simple  **purely  functional
 > language** used  to  describe  components   and  the
 > compositions thereof.
+
+That is, a "Nix expression" is a program written using the constructs of the Nix language.
+
+Resources on the Nix language:
+
+  + [Nix Manual, Chapter 15. Nix Expression Language](https://nixos.org/nix/manual/#ch-expression-language)
+  + [NixOS Wiki, Nix Expression Language](https://nixos.wiki/wiki/Nix_Expression_Language)
+  + [Nix Pills, Chapter 4. The Basics of the Language](https://nixos.org/nixos/nix-pills/basics-of-language.html)
+  + [Nix by example, Part 1: The Nix expression language](https://medium.com/@MrJamesFisher/nix-by-example-a0063a1a4c55)
+  + [What is the syntax of a valid identifier in the Nix language?](https://stackoverflow.com/questions/56198420/what-is-the-syntax-of-a-valid-identifier-in-the-nix-language) (with link to the Nix language [lexer](https://github.com/NixOS/nix/blob/6a5bf9b1438ed0b721657568fbb3a7c0b829e89e/src/libexpr/lexer.l))
 
 > ```text
 > *--------------------------------------------------------------------*
