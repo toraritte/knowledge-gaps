@@ -11,7 +11,8 @@ Basically none of the recommended types are the default.
 ## Resources
 
 + [Difference in between :utc_datetime and :naive_datetime in Ecto](https://elixirforum.com/t/difference-in-between-utc-datetime-and-naive-datetime-in-ecto/12551)
-+ [Don't use timestamp (without time zone) (PostgreSQL Wiki)](https://wiki.postgresql.org/wiki/Don%27t_Do_This#Don.27t_use_timestamp_.28without_time_zone.29)
+
+-------
 
 + [lau/tzdata](https://github.com/lau/tzdata)
   
@@ -20,6 +21,8 @@ Basically none of the recommended types are the default.
   datetimes_" but  it can be configured  with a custom
   time  zone  database,  which is  what  the  `tzdata`
   library is
+
+-------
 
 + [Time zones in PostgreSQL, Elixir and Phoenix](https://www.amberbit.com/blog/2017/8/3/time-zones-in-postgresql-elixir-and-phoenix/) and  
   [How to set timestamps to UTC DateTimes in Ecto](http://www.creativedeletion.com/2019/06/17/utc-timestamps-in-ecto.html)
@@ -72,3 +75,17 @@ Basically none of the recommended types are the default.
       </tr>
     </tbody>
   </table>
+
+-------
+
++ Discussions and advice specific to PostgreSQL
+
+  + [Don't use timestamp (without time zone) (PostgreSQL Wiki)](https://wiki.postgresql.org/wiki/Don%27t_Do_This#Don.27t_use_timestamp_.28without_time_zone.29)
+
+  + [Difference between timestamps with/without time zone in PostgreSQL](https://stackoverflow.com/questions/5876218/difference-between-timestamps-with-without-time-zone-in-postgresql)
+
+  + [Ignoring time zones altogether in Rails and PostgreSQL (accepted answer)](https://stackoverflow.com/questions/9571392/ignoring-time-zones-altogether-in-rails-and-postgresql/9576170#9576170)
+
+  + [8.5. Date/Time Types (PostgreSQL manual)](https://www.postgresql.org/docs/current/datatype-datetime.html)
+
+  + [9.9.3. AT TIME ZONE (PostgreSQL manual)](https://www.postgresql.org/docs/current/functions-datetime.html#FUNCTIONS-DATETIME-ZONECONVERT)
