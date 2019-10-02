@@ -2,7 +2,8 @@
 
 Found the clearest definitions in
 [Eelco Dolstra](https://nixos.org/~eelco/)'s
-(the creator of Nix and NixOS) PhD. It can be downloaded from
+(the creator of Nix and NixOS) PhD thesis. It can be
+downloaded from
 [his list of publications](https://nixos.org/~eelco/pubs/),
 but here's the direct link:
 [The Purely Functional Software Deployment Model (2006)](https://nixos.org/~eelco/pubs/phd-thesis.pdf).
