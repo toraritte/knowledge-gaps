@@ -1,11 +1,11 @@
 # "expression" vs "derivation" vs "closure" in the Nix package manager
 
 Found the clearest definitions in
-[Eelco Dolstra](https://medium.com/r/?url=https%3A%2F%2Fnixos.org%2F~eelco%2F)'s
+[Eelco Dolstra](https://nixos.org/~eelco/)'s
 (the creator of Nix and NixOS) PhD. It can be downloaded from
-[his list of publications](https://medium.com/r/?url=https%3A%2F%2Fnixos.org%2F~eelco%2Fpubs%2F),
+[his list of publications](https://nixos.org/~eelco/pubs/),
 but here's the direct link:
-[The Purely Functional Software Deployment Model (2006)](https://medium.com/r/?url=https%3A%2F%2Fnixos.org%2F~eelco%2Fpubs%2Fphd-thesis.pdf).
+[The Purely Functional Software Deployment Model (2006)](https://nixos.org/~eelco/pubs/phd-thesis.pdf).
 
 Emphases all mine.
 
