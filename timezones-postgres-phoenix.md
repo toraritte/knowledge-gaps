@@ -8,29 +8,40 @@ Bottom line is to use the following:
 
 Basically none of the recommended types are the default.
 
-## Switch to `timestamptz` and `:utc_datetime` in Ecto migrations
+## ECTO MIGRATIONS: Switch to `timestamptz` and `:utc_datetime`
 
-### 1. Use `:utc_datetime` in datetime representations
+**Note**: [Ecto.Migration.timestamps/1](https://hexdocs.pm/ecto_sql/Ecto.Migration.html#timestamps/1) ([source](https://github.com/elixir-ecto/ecto_sql/blob/v3.2.0/lib/ecto/migration.ex#L925)) global configuration can always be overridden locally.
 
-> NOTE
->
-> This seems superfluous. See https://elixirforum.com/t/why-cant-timestamptz-be-set-up-as-default-timestamp-for-migrations-in-config/25778
+### 1. Global configuration
 
-From the [`Ecto.Migration` docs](https://hexdocs.pm/ecto_sql/Ecto.Migration.html#module-repo-configuration):
-> + `:migration_timestamps` - By default, Ecto uses the `:naive_datetime` type, but you can configure it via:
->
->   ```elixir
->   config :app, App.Repo, migration_timestamps: [type: :utc_datetime]
->   ```
+Using the `:migration_timestamps` configuration option from the [`Ecto.Migration` docs](https://hexdocs.pm/ecto_sql/Ecto.Migration.html#module-repo-configuration):
 
-### 2. Store datetimes as `timestamptz` (aka. `timestamp with time zones`)
+```elixir
+# in ./config/dev.exs (for example)
 
-Found the
-[`Ecto.Migration.timestamps/1` docs](https://hexdocs.pm/ecto_sql/Ecto.Migration.html#timestamps/1)
-confusing, but then realized that
-[`add/3`](https://hexdocs.pm/ecto_sql/Ecto.Migration.html#add/3)
-also accepts  atoms that correspond to  the types of
-the database used.
+config :app, App.Repo, migration_timestamps: [type: :timestamptz]
+```
+
+and one can use `Ecto.Migration.timestamps/1` in migrations as usual:
+
+```elixir
+# ./priv/repo/migrations/20190718195828_create_users.exs
+
+create table(:users) do
+  add :username, :string, null: false
+
+  timestamps()
+end
+```
+
+
+The  `Postgres`  adapter will  automatically  switch
+the   Elixir  representation   to  `DateTime`   from
+`NaiveDateTime`.
+
+### 2. Local configuration
+
+Use [Ecto.Migration.timestamps/1](https://hexdocs.pm/ecto_sql/Ecto.Migration.html#timestamps/1)'s `:type` option:
 
 ```elixir
 defmodule App.Repo.Migrations.CreateUsers do
@@ -47,21 +58,61 @@ defmodule App.Repo.Migrations.CreateUsers do
 end
 ```
 
-## Switch to `:utc_datetime` in Ecto schemas
+## ECTO SCHEMAS: Switch to `:utc_datetime`
+
+### 1. Global configuration
+
+The  Ecto  schemas  also  need  to  be  modified  to
+use  `:utc_datetime`,  otherwise  they  will  expect
+`NaiveDateTime` by  default. Slightly  modifying the
+example in the
+[`Ecto.Schema` docs](https://hexdocs.pm/ecto/Ecto.Schema.html#module-schema-attributes):
+
+> ```elixir
+> # Define a module to be used as base
+> defmodule MyApp.Schema do
+>   defmacro __using__(_) do
+>     quote do
+>       use Ecto.Schema
+>
+>       # In case one uses UUIDs
+>       @primary_key {:id, :binary_id, autogenerate: true}
+>       @foreign_key_type :binary_id
+>
+>       # ------------------------------------
+>       @timestamps_opts [type: :utc_datetime]
+
+>     end
+>   end
+> end
+>
+> # Now use MyApp.Schema to define new schemas
+> defmodule MyApp.Comment do
+>   use MyApp.Schema
+>
+>   schema "comments" do
+>     belongs_to :post, MyApp.Post
+>
+>     timestamps()
+>   end
+> end
+> ```
+
+### 2. Local configuration
 
 ```elixir
 defmodule ANV.Accounts.User do
 
   use Ecto.Schema
 
-  # EITHER
+  # -- EITHER --------------------------
   @timestamps_opts [type: :utc_datetime]
 
   schema "users" do
 
     field :username, :string
 
-    # OR
+    # -- OR -----------------------
     timestamps(type: :utc_datetime)
   end
 ```
@@ -85,54 +136,19 @@ defmodule ANV.Accounts.User do
 + [Time zones in PostgreSQL, Elixir and Phoenix](https://www.amberbit.com/blog/2017/8/3/time-zones-in-postgresql-elixir-and-phoenix/) and
   [How to set timestamps to UTC DateTimes in Ecto](http://www.creativedeletion.com/2019/06/17/utc-timestamps-in-ecto.html)
 
-  These   articles  should   be  used   together  (the
-  first  shows  how to  set  up  Ecto schemas  to  use
-  `:utc_datetime`,  but  no  word of  migrations  with
-  `timestamptz`, and vice versa)
-
   A very handy table from the first article:
 
-  <table>
-    <thead>
-      <tr>
-        <th>Ecto 3 type</th>
-        <th>Elixir type</th>
-        <th style="text-align: center">Supports microseconds?</th>
-        <th style="text-align: center">Supports <a href="https://hexdocs.pm/elixir/DateTime.html#to_unix/2">DateTime functions?</a></th>
-        <th style="text-align: center">Supports NaiveDateTime functions?</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><code class="highlighter-rouge">:utc_datetime_usec</code></td>
-        <td><code class="highlighter-rouge">DateTime</code></td>
-        <td style="text-align: center">✓</td>
-        <td style="text-align: center">✓</td>
-        <td style="text-align: center">✓</td>
-      </tr>
-      <tr>
-        <td><code class="highlighter-rouge">:utc_datetime</code></td>
-        <td><code class="highlighter-rouge">DateTime</code></td>
-        <td style="text-align: center">No</td>
-        <td style="text-align: center">✓</td>
-        <td style="text-align: center">✓</td>
-      </tr>
-      <tr>
-        <td><code class="highlighter-rouge">:naive_datetime_usec</code></td>
-        <td><code class="highlighter-rouge">NaiveDateTime</code></td>
-        <td style="text-align: center">✓</td>
-        <td style="text-align: center">No</td>
-        <td style="text-align: center">✓</td>
-      </tr>
-      <tr>
-        <td><code class="highlighter-rouge">:naive_datetime</code></td>
-        <td><code class="highlighter-rouge">NaiveDateTime</code></td>
-        <td style="text-align: center">No</td>
-        <td style="text-align: center">No</td>
-        <td style="text-align: center">✓</td>
-      </tr>
-    </tbody>
-  </table>
+```
++----------------------+------------------+------------------------+------------------------------+-----------------------------------+
+|    Ecto 3 type       |    Elixir type   | Supports microseconds? | Supports DateTime functions? | Supports NaiveDateTime functions? |
++----------------------+------------------+------------------------+------------------------------+-----------------------------------+
+| :utc_datetime_usec   | DateTime         |    YES                 |   YES                        |   YES                             |
+| :utc_datetime        | DateTime         |    NO                  |   YES                        |   YES                             |
+| :naive_datetime_usec | NaiveDateTime    |    YES                 |   NO                         |   YES                             |
+| :naive_datetime      | NaiveDateTime    |    NO                  |   NO                         |   YES                             |
++----------------------+------------------+------------------------+------------------------------+-----------------------------------+
+
+```
 
 -------
 
