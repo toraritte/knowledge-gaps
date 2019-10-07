@@ -71,3 +71,32 @@
 
   + uuid_debug_media
   + uuid_displace (? I guess this is supposed to mean "replace")
+
+## Snippet from Joshua Young
+
+```lua
+local uuid = session:get_uuid();
+api = freeswitch.API()
+function func1()
+    api:executeString("uuid_fileman " .. uuid .. " seek:-2000")
+    session:destroy();
+end
+function func2()
+    api:executeString("uuid_fileman " .. uuid .. " seek:+2000")
+    session:destroy();
+end
+if argv[1] == "myarg1" then
+    func1()
+elseif argv[1] == "myarg2" then
+    func2()
+end
+if session:ready() then
+   session:answer()
+   session:execute("sleep","1000")
+   session:execute("bind_digit_action","myrealm,*,exec:lua,test.lua myarg1");
+   session:execute("bind_digit_action","myrealm,#,exec:lua,test.lua myarg2");
+   session:execute("bind_digit_action","myrealm,0,api:uuid_break," .. uuid);
+   --session:execute("playback","/usr/local/freeswitch/sounds/joshebosh/Answering_Machine.wav")
+   session:execute("playback","tone_stream://%(100,0,350);loops=-1");
+end
+```

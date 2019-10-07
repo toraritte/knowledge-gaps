@@ -1,3 +1,27 @@
+TODO: Clean up.
+
+      Different  versions of  this  text are  at
+      different places, and it is getting out of
+      hand. Reconcile them, and  put them on the
+      `nix-tome` repo.
+
+      + https://medium.com/scientific-breakthrough-of-the-afternoon/closure-vs-derivation-in-the-nix-package-manager-ec0eccc53407
+
+      + https://stackoverflow.com/questions/58243554/what-is-a-nix-expression-in-regard-to-nix-package-management/58243555#58243555
+
+      + https://stackoverflow.com/questions/31490262/what-is-the-purpose-of-nix-instantiate-what-is-a-store-derivation/58243537#58243537
+
+      + ... and here
+
+> TODO: closure summary
+>
+> "_. It is a representation of the cryptographic hash
+> of all inputs involved in building the component._"
+>
+> Read  the beginning  of  the  thesis again,  because
+> closures  weren't  even  mentioned in  this  section
+> (which is 2.1 The Nix store, page 19).
+
 # "expression" vs "derivation" vs "closure" in the Nix package manager
 
 Found the clearest definitions in
@@ -19,56 +43,68 @@ describing  how   to  build  a   software  component
 (package, project, application,  etc.) using the Nix
 purely functional language.
 
--------
-
-[To quote Gabriel Gonzalez](https://github.com/Gabriel439/haskell-nix/pull/39#issuecomment-357790605):
+<sup> <a href="https://github.com/Gabriel439/haskell-nix/pull/39#issuecomment-357790605">To quote Gabriel Gonzalez</a>:
 "_You   can    think   of   a   derivation    as   a
 language-agnostic recipe for  how to build something
 (such as a Haskell package)._"
+</sup>
 
--------
-
-Nix expressions are also commonly called **derivations**.
-
--------
+Nix   expressions    are   also    commonly   called
+**derivations**     (as    in     _Nix    derivation
+expressions_), but
 
 ```text
-*--------------------------------------------------*
-| Technically,                                     |
-|                                                  |
-|   DERIVATION =/= NIX EXPRESSION                  |
-|                                                  |
-| but  Nix  expressions do  produce   derivations. |
-|                                                  |
-| From  section  "5.4 Translating Nix expressions  |
-| to store derivations":                           |
-|                                                  |
-| > The normal form [of a Nix expression] should   |
-| > be                                             |
-| >                                                |
-| >   + a call to `derivation`, or                 |
-| >                                                |
-| >   + a nested  structure  of lists and          |
-| >     attribute sets that contain calls          |
-| >     to `derivation`.                           |
-| >                                                |
-| > In any case, these derivation  Nix expressions |
-| > are subsequently translated to store derivations
-|                                                  |
-*--------------------------------------------------*
+*------------------------------------------------------*
+|                                                      |
+|       STORE DERIVATION =/= NIX EXPRESSION            |
+|                                                      |
+*------------------------------------------------------*
+|                                                      |
+| NIX EXPRESSION == function                           |
+|                                                      |
+| ( Describes how to build a component. That is, how ) |
+| ( to  compose  its  input parameters, which can be ) |
+| ( other components as well.                        ) |
+|                                                      |
+| STORE DERIVATION == function application             |
+|                                                      |
+| ( Call a  Nix  expression with concrete arguments. ) |
+| ( Corollary: a single Nix  expression  can produce ) |
+| ( different derivations depending on the inputs.   ) |
+|                                                      |
+*------------------------------------------------------*
 ```
+
+The purpose of Nix expressions is to produce a
+[**store derivation**](link here)
+that  can  be  built into a component  (executable,
+library, etc.).
+
+From  section "5.4  Translating  Nix expressions  to
+store derivations":
+
+> The normal form [of a Nix expression] should
+> be
+>
+>   + a call to `derivation`, or
+>
+>   + a nested  structure  of lists and
+>     attribute sets that contain calls
+>     to `derivation`.
+>
+> In any case, these derivation  Nix expressions
+> are subsequently translated to store derivations.
+
 
 ![Flow diagram of derivation creation](./figure_2-12.png)
 
-> TODO 2019-09-29_0800
+> QUESTION 2019-09-29_0800
 >
 > Are   there   any   Nix   expressions   that   don't
 > ultimately  result in  derivations?  There are  ones
 > that  only  indirectly  produce  derivations  (e.g.,
 > `all-packages.nix`),  but the  outcome is  the same.
 > Plus that is the only purpose of Nix expression.
-
-> TODO: closure summary
 
 ## Nix expressions
 
@@ -115,10 +151,13 @@ Resources on the Nix language:
 
 ```text
 *--------------------------------------------------*
-| What are components?                             |
+| What is a component?                             |
 | ====================                             |
 |                                                  |
-| From "3.1 What is a component?":                 |
+| A package, application, development environment, |
+| software library, etc.                           |
+|                                                  |
+| More formally from "3.1 What is a component?":   |
 |                                                  |
 | >  A software component is                       |
 | >                                                |
@@ -142,7 +181,7 @@ Resources on the Nix language:
 
 -------
 
-A  **derivation**  is  a  Nix  expression  with  all
+A  **store derivation**  is  a  Nix  expression  with  all
 variability removed (i.e.,  a function with concrete
 inputs) and _tranlated_  into an alternative format.
 This   intermediate  representation   "_describes  a
@@ -154,7 +193,7 @@ single,  static,  constant build  action_"  (section
     (function)       (args)
 ```
 
-Derivations can be _built_, that is, the encoded
+Derivations can be _built_ into components, that is, the encoded
 function with its arguments is evaluated.
 
 -------
@@ -191,7 +230,7 @@ derivation that is "exactly one build action".
 ```
 
 The derivations  above could  be producing  the same
-application but  built with  different configuration
+application but  would build it with different configuration
 options  for example.  (See APT  packages `vim-nox`,
 `vim-gtk`, `vim-gtk3`, `vim-tiny`, etc.)
 
@@ -296,27 +335,27 @@ something similar to in Figure 2.13:
 ```
 
 ## (To cull and format)
-> 
+>
 > > We     perform    a     derivation    by     calling
 > > `stdenv.mkDerivation`. `mkDerivation`  is a function
 > > provided  by stdenv  that  builds  a component  from
 > > a  set  of  attributes2.  The  attributes  given  to
 > > stdenv.mkDerivation are  the concrete inputs  to the
 > > build action.
-> 
+>
 > -------
-> 
+>
 > ### Derivations and attribute sets
-> 
+>
 > From "_2.2 Nix expressions_":
-> 
+>
 > > An attribute set  is just a list  of key/value pairs
 > > where  each value  is an  arbitrary Nix  expression.
 > > They  take the  general form  {name1 =  expr1 ;  ...
 > > namen = exprn ;}.
-> 
+>
 > -------
-> 
+>
 > ```text
 >     *-------------------------------------*
 >     |  STEP 3. Composition                |
@@ -331,18 +370,18 @@ something similar to in Figure 2.13:
 >     |                                     |
 >     *-------------------------------------*
 > ```
-> 
+>
 > ## Closures
-> 
+>
 > The goal of complete deployment: safe deployment requires that there are no missing dependencies. This means that we need to deploy closures of components under the "depends-on" relation. That is, when we deploy (i.e., copy) a component X to a client machine, and X depends on Y, then we also need to deploy Y to the client machine.
 > Derivations
 > Nix expressions are not built directly; rather, they are translated to the more primitive language of store derivations, which encode single component build actions. This is analogous to the way that compilers generally do the bulk of their work on simpler intermediate representations of the code being compiled, rather than on a full-blown language with all its complexities. Store derivations are placed in the Nix store, and as such have a store path too. The advantage of this two-level build process is that the paths of store derivations give us a unique identification of objects of source deployment, just as paths of binary components uniquely identify objects of binary deployment.
 > Figure 2.12 outlines this two-stage build process: Nix expressions are first translated to store derivations that live in the Nix store and that each describe a single build action with all variability removed. These store derivations can then be built, which results in derivation outputs that also live in the Nix store.
 > The above quote is directly preceded with the reasons on why derivations are necessery in section 2.4 Store derivations.
-> 
+>
 > Jumping back to "_2.2 Nix expression_", it continues
 > with an example  on how Nix expressions  are used:
-> 
+>
 > > Generally,  to deploy  a component  [using Nix]  one
 > > performs the following three steps:
 > >
@@ -365,11 +404,11 @@ something similar to in Figure 2.13:
 > >      component  with  its  dependencies,  we  must  write
 > >      another Nix expression that  calls the function with
 > >      appropriate arguments.
-> 
+>
 > The thesis  continues with  a detailed  example, but
 > here's a quick overview on how these steps relate to
 > each other:
-> 
+>
 > ```text
 >     *--------------------------*
 >     | STEP 3. Composition      |
